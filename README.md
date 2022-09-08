@@ -1,4 +1,4 @@
-# Qualitest - Qualithon'22 - Track 2 Challenge
+# QT - Java-Selenium Challenge
 
 ## Challenge Objective
 1. Fix failing test scripts if the failure is not a defect. The web application under test is https://www.imdb.com/
