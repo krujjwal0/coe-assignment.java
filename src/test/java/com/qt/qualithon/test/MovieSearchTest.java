@@ -13,7 +13,7 @@ import com.qt.qualithon.model.Movie;
 import com.qt.qualithon.api.omdb.*;
 
 /**
- * Test movie web page on imdb and rottentomato to check if the movie data is correct 
+ * Test movie web page on imdb and rottentomato to check if the movie data is correct
  * compared to OMDb http://www.omdbapi.com/
  **/
 public class MovieSearchTest {
@@ -23,7 +23,7 @@ public class MovieSearchTest {
     @BeforeMethod
     public void testSessionSetUp(){
         // init browser test session
-    	System.setProperty("webdriver.chrome.driver", "C:\\Users\\ujjwal.kumar\\Downloads\\chromedriver_win32\\chromedriver.exe");
+    	System.setProperty("webdriver.chrome.driver", "C:\\Users\\krujj\\Downloads\\chromedriver_win32\\chromedriver.exe");
         this.testSession = TestSession.ChromeTestSession();
     }
 
@@ -42,14 +42,13 @@ public class MovieSearchTest {
     @DataProvider
     public Object[][] popularMovieTitles() {
         return new Object [][] {
-            {"A Clockwork Orange"},
-            {"The Dark Knight Rises"},
-            {"Gehraiyaan"}
+//            {"A Clockwork Orange"},
+            {"The Dark Knight Rises"}
         };
     }
-  
+
     /**
-     * test that user should be able to search movie titles by exact title name 
+     * test that user should be able to search movie titles by exact title name
      * and see the movie metadata
      *
      * @param   title   movie title to search
@@ -67,7 +66,7 @@ public class MovieSearchTest {
     }
 
     /**
-     * test that release year on movie page is correct compared to the 
+     * test that release year on movie page is correct compared to the
      * movie metadata on OMDb Test Data
      *
      * @param   title   movie title to search
@@ -87,7 +86,7 @@ public class MovieSearchTest {
     }
 
     /**
-     * test that director name on movie page is correct compared to the 
+     * test that director name on movie page is correct compared to the
      * movie metadata on OMDb Test Data
      *
      * @param   title   movie title to search
@@ -107,7 +106,7 @@ public class MovieSearchTest {
     }
 
     /**
-     * test that writers on movie page are correct compared to the 
+     * test that writers on movie page are correct compared to the
      * movie metadata on OMDb Test Data
      *
      * @param   title   movie title to search
@@ -127,7 +126,7 @@ public class MovieSearchTest {
     }
 
     /**
-     * test that movie genres on movie page are correct compared to the 
+     * test that movie genres on movie page are correct compared to the
      * movie metadata on OMDb Test Data
      *
      * @param   title   movie title to search
@@ -153,11 +152,12 @@ public class MovieSearchTest {
      * @param   title   movie title to search
      *
      **/
-//    @Test(dataProvider = "popularMovieTitles")
-//    public void testMovieMetadataOnWebHasCorrectMaturityRating(String title) throws Exception {
-//        // NOT IMPLEMENTED
-//        throw new Exception("Test Pending");
-//    }
+    @Test(dataProvider = "popularMovieTitles")
+    public void testMovieMetadataOnWebHasCorrectMaturityRating(String title) throws Exception {
+    	MoviePage movieOnImdbWeb = new WebApp(this.testSession).launch().search(title).firstMovieResult();
+		Movie movie = new OMDbAPI().getMovie(title);
+		assertThat(movieOnImdbWeb.maturityRating()).isEqualTo(movie.maturityRating());
+    }
 
     /**
      * test that movie rating score on movie page (IMDB Rating, Tomatometer) is correct compared to the
@@ -166,9 +166,10 @@ public class MovieSearchTest {
      * @param   title   movie title to search
      *
      **/
-//    @Test(dataProvider = "popularMovieTitles")
-//    public void testMovieMetadataOnWebHasCorrectMovieRatingScore(String title) throws Exception {
-//        // NOT IMPLEMENTED
-//        throw new Exception("Test Pending");
-//    }
+    @Test(dataProvider = "popularMovieTitles")
+    public void testMovieMetadataOnWebHasCorrectMovieRatingScore(String title) throws Exception {
+    	MoviePage movieOnImdbWeb = new WebApp(this.testSession).launch().search(title).firstMovieResult();
+		Movie movie = new OMDbAPI().getMovie(title);
+		assertThat(movieOnImdbWeb.ratingScore()).isEqualTo(movie.ratingScore());
+    }
 }

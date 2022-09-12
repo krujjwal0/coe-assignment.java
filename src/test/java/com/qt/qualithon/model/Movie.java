@@ -12,6 +12,8 @@ public class Movie{
     String title;
     String releaseYear;
     String director;
+    String maturity;
+	String ratingsImdb;
     List<String> genres;
     List<String> writers;
 
@@ -140,6 +142,22 @@ public class Movie{
     public List<String> writers(){
         return this.writers;
     }
+    
+    public void setRatingScore(String ratingsImdb) {
+		this.ratingsImdb = ratingsImdb;
+	}
+
+	public String ratingScore() {
+		return this.ratingsImdb;
+	}
+	
+	public void setMaturityRating(String maturity) {
+		this.maturity = maturity;
+	}
+
+	public String maturityRating() {
+		return this.maturity;
+	}
 
     /**
      * a pretty formated representation of movie metadata

@@ -150,5 +150,19 @@ public class MoviePage extends Page{
         }
         return writers;
     }
+    
+    public String maturityRating() {
+		return this.testSession.driverWait().until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(
+				"div[class='sc-80d4314-2 iJtmbR'] ul> li:nth-child(2) a"))) 
+				.getText();
+
+	}
+
+	public String ratingScore() {
+		return this.testSession.driverWait()
+				.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//span[@class='sc-7ab21ed2-1 jGRxWM'])[1]")))
+				.getText();
+
+	}
 
 }
